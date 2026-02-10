@@ -11,4 +11,4 @@
         tty: true
         state: started
         ports:
-            80:80
+          -  "80:80"

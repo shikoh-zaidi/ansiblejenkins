@@ -1,4 +1,4 @@
-pipeline{
+,pipeline{
   agent { label ${LABEL_NAME}}
 
   stages{
@@ -11,8 +11,8 @@ pipeline{
     stage('ansible playbook'){
       steps{
                 ansiblePlaybook(
-                  playbook: 'ansible/deploy.yml'
-                  inventory: 'ansible/hosts.ini'
+                  playbook: 'ansible/deploy.yml',
+                  inventory: 'ansible/hosts.ini',
                   credentialsId: '${ssh_key}'
                 )
       }

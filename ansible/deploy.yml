@@ -3,7 +3,7 @@
   hosts: all
   become: true
 
-  task:
+  tasks:
     - name: docker container run
       docker_container:
         name: web

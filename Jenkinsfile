@@ -1,4 +1,4 @@
-,pipeline{
+pipeline{
   agent { label ${LABEL_NAME}}
 
   stages{

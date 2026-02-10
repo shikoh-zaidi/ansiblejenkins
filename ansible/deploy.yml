@@ -1,6 +1,6 @@
 ---
 - name: jenkins ansible deployment
-  host: all
+  hosts: all
   become: true
 
   task:

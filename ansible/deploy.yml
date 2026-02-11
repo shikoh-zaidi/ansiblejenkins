@@ -30,8 +30,8 @@
     - name: Remove existing container if present
       docker_container:
         name: "{{ container_name }}"
-        state: stop
-        ignore_error: true
+        state: absent
+      ignore_errors: true
 
     - name: Run new container
       docker_container:

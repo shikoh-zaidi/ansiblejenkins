@@ -1,14 +1,43 @@
 ---
-- name: jenkins ansible deployment
+- name: Deploy Docker container on worker node
   hosts: all
   become: true
 
+  vars:
+    image_name: myapp
+    image_tag: latest
+    container_name: myapp-container
+    container_port: 8080
+    host_port: 8080
+
   tasks:
-    - name: docker container run
-      docker_container:
-        name: web
-        image: nginx:latest
-        tty: true
+
+    - name: Ensure Docker is running
+      service:
+        name: docker
         state: started
+        enabled: yes
+
+    - name: Build Docker image
+      docker_image:
+        name: "{{ image_name }}"
+        tag: "{{ image_tag }}"
+        build:
+          path: "{{ playbook_dir }}/.."
+        source: build
+        force_source: yes
+
+    - name: Remove existing container if present
+      docker_container:
+        name: "{{ container_name }}"
+        state: stop
+        ignore_error: true
+
+    - name: Run new container
+      docker_container:
+        name: "{{ container_name }}"
+        image: "{{ image_name }}:{{ image_tag }}"
+        state: started
+        restart_policy: always
         ports:
-          -  "80:80"
+          - "{{ host_port }}:{{ container_port }}"

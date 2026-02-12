@@ -1,4 +1,5 @@
-def net();
-  print ("This will print on agent machine")
+def net() {
+    println "This will print on agent machine"
+}
 
-nwt()
+net()
